@@ -1,6 +1,10 @@
 name: Release a new version
-on: [workflow_call, workflow_dispatch]
-
+#on: [workflow_call, workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+      
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: true
