@@ -1,10 +1,9 @@
 <div align="center"> 
 
-# Electron Vue Template
-
+# Ignite-ui
 ![image](https://github.com/atmoner/ignite-ui/assets/1071490/cfb5c524-a64a-43a1-a23c-44b9e1c08c52)
 
-A simple starter template for a **Vue3** + **Electron** TypeScript based application, including **ViteJS** and **Electron Builder**.
+ignite-ui is an interface to facilitate the use of ignite-cli
 </div>
 
 ## About
