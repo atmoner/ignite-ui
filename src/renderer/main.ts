@@ -63,6 +63,11 @@ const router = VueRouter.createRouter({
         path: '/chain/:name',
         name: 'ChainDetail',
         component: ChainDetail
+      },
+      { 
+        path: '/:pathMatch(.*)*', 
+        name: 'NotFound', 
+        component: Home
       }
     ]
   })
