@@ -1,6 +1,10 @@
 import {app, BrowserWindow, ipcMain, session, shell} from 'electron';
 import {join} from 'path';
 
+app.commandLine.appendSwitch('ignore-gpu-blacklist');
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-gpu-compositing');
+
 function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1200,
@@ -26,9 +30,6 @@ function createWindow () {
  
 app.whenReady().then(() => {
   createWindow();
- 
-
-
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     callback({
       responseHeaders: {
@@ -64,7 +65,5 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
 ipcMain.on('open-url', (event, arg) => {
   // Event emitter for sending asynchronous messages
-  shell.openExternal(arg)
-
-  
+  shell.openExternal(arg)  
 })
