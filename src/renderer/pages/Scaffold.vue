@@ -37,18 +37,15 @@
               </v-col>
             </v-row>
             <v-checkbox v-model="noModules" label="--no-module"></v-checkbox>
-          </v-container>
-        </v-card-text>
-        <v-card-actions> 
-          <v-btn 
+            <v-btn 
           variant="tonal"
             block
             @click="validate()"
           >
             Scaffold
           </v-btn>
-
-        </v-card-actions>
+          </v-container>
+        </v-card-text> 
       </v-card>
  
   </v-row>

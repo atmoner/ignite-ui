@@ -1,6 +1,7 @@
 <template>
  
     <v-layout>
+      
       <v-navigation-drawer
         v-model="drawer" 
         permanent 
@@ -8,17 +9,29 @@
         temporary
       >
         <v-list-item
-          prepend-avatar="https://uploads-ssl.webflow.com/61d0960dc36814254b73e5ba/63ab212f5f0e596e7edf9bca_1645620665618.jpg"
-          title="Ignite"
+          prepend-avatar="https://uploads-ssl.webflow.com/61d0960dc36814254b73e5ba/63ab212f5f0e596e7edf9bca_1645620665618.jpg" 
           nav
         >
-          <template v-slot:append>
+        <v-list-item-title>Ignite-ui
+
+          <v-chip 
+            color="success"
+            variant="outlined"
+            x-small
+            class="ml-2"
+            label
+          > 
+            Beta
+          </v-chip>
+        </v-list-item-title>
+          
+          <!-- <template v-slot:append>
             <v-btn
               variant="text"
               icon="mdi-chevron-left"
               @click.stop="rail = !rail"
             ></v-btn>
-          </template>
+          </template> -->
         </v-list-item>
 
         <v-divider></v-divider>
@@ -31,6 +44,36 @@
           <v-list-item prepend-icon="mdi-cog" title="Settings" value="Settings" to="/settings"></v-list-item>
         </v-list>
       </v-navigation-drawer>
+      <!-- <v-app-bar
+        color="teal-darken-4"
+        image="https://picsum.photos/1920/1080?random"
+      >
+        <template v-slot:image>
+          <v-img
+            gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+          ></v-img>
+        </template>
+
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </template>
+
+        <v-app-bar-title>Title</v-app-bar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </v-app-bar> -->
       <v-main>
  
          

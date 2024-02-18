@@ -9,10 +9,24 @@ import fs from "fs";
 import { chunksToLinesAsync, chomp } from '@rauschma/stringio';
 import { Readable } from 'node:stream';
 
+async function checkGoInstalled() {    
+  try {
+    const { stdout, stderr } = await exec('go version'); 
+    console.log(stdout)
+    return stdout
+  } catch (error) { 
+    return 'false'
+  }
+}
+
 async function returnVersion() {    
+  try {
     const { stdout, stderr } = await exec('ignite version'); 
     console.log(stderr)
-    return stderr  
+    return stderr
+  } catch (error) { 
+    return 'false'
+  }
 }
 
 async function runScaffoldChain(name: any, prefix: any, folder: any, noModules: any) {    
@@ -201,6 +215,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   sendMessage: (message: string) => ipcRenderer.send('message', message),
   openUrl: (url: string) => ipcRenderer.send('open-url', url),  
   version: () => returnVersion(),
+  checkGo: () => checkGoInstalled(),
   scaffoldChain: (name: any, prefix: any, folder: any, noModules: any) => runScaffoldChain(name, prefix, folder, noModules),
   scaffoldAny: (
     type: any, 
