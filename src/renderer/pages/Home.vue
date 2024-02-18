@@ -258,9 +258,14 @@
   </v-table>
 
       <div class="text-subtitle-2 font-weight-black mb-1 mt-6">Your go export folder</div>
-
+ 
+          <v-form
+            ref="formSend" 
+            v-model="formSend"
+          > 
       <v-text-field     
-        v-model="folderGo"   
+        v-model="folderGo" 
+        :rules="[rules.required]"  
         label="/home/<user>/go/bin/"
         single-line
         variant="outlined"
@@ -269,23 +274,24 @@
 
       <v-text-field
         v-model="folderWork"
+        :rules="[rules.required]"
         label="/home/<user>/Desktop/ignite-workspace/"
         single-line
         variant="outlined"
       ></v-text-field>
 
-      <v-btn
-        :disabled="loading"
-        :loading="loading"
+      <v-btn 
         block
         class="text-none mb-4"
         color="indigo-darken-3"
         size="x-large"
-        variant="flat"         
+        variant="flat"  
+        :disabled="!formSend"       
         @click="saveIgniteConfig"
       >
         Save config
       </v-btn>
+    </v-form>
     </v-card-text>
   </v-card>
     </v-dialog>
@@ -299,6 +305,7 @@ export default {
   name: 'App',
   data: () => ({
     firstRunModal: false,
+    formSend: false,
     loading: false,
     folderWork: '',
     folderGo: '',
@@ -309,7 +316,10 @@ export default {
     dialogDetailData: '',
     chainSelectedPath: '',
     yamlFile: '',
-    loadedYaml: ''
+    loadedYaml: '',
+    rules: {
+      required: value => !!value || 'Required.',
+    },
   }), 
   setup() {
     const store = useAppStore()
