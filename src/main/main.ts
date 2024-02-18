@@ -1,5 +1,7 @@
 import {app, BrowserWindow, ipcMain, session, shell} from 'electron';
-import {join} from 'path';
+const path = require('path');
+const iconPath = path.join(__dirname, "static", "logo.png");
+console.log(iconPath)
 
 app.commandLine.appendSwitch('ignore-gpu-blacklist');
 app.commandLine.appendSwitch('disable-gpu');
@@ -7,14 +9,15 @@ app.commandLine.appendSwitch('disable-gpu-compositing');
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
-    width: 1200,
+    width: 1300,
     height: 800,
     autoHideMenuBar: true,
-    icon: join(__dirname, 'logo.ico'),
+    icon: iconPath, 
     webPreferences: {
-      preload: join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: true,
+      devTools: true // !app.isPackaged
     }
   });
 
@@ -24,7 +27,7 @@ function createWindow () {
     mainWindow.webContents.openDevTools()
   }
   else {
-    mainWindow.loadFile(join(app.getAppPath(), 'renderer', 'index.html'));
+    mainWindow.loadFile(path.join(app.getAppPath(), 'renderer', 'index.html'));
   }
 }
  

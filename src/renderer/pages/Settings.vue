@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-  <v-row justify="center">
+ 
+  <v-row class="mt-4" justify="center">
     <v-card min-width="900">
       <v-card-title>
         <span class="text-h5">Settings</span>
@@ -28,7 +28,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-container>
         <v-btn
           block
           variant="tonal"
@@ -36,14 +36,13 @@
         >
           Save
         </v-btn>
+      </v-container>
       </v-card-actions>
     </v-card>
 
 </v-row>
 
-
-
-</v-container>
+ 
 </template>
 <script>
   export default {
@@ -59,9 +58,7 @@
       validate () {
         console.log(this.folderWork)
         localStorage.folderWork = this.folderWork
-        localStorage.folderGo = this.folderGo 
-
-        
+        localStorage.folderGo = this.folderGo        
       },
     }
   }

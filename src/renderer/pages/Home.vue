@@ -1,11 +1,11 @@
 <template>
-    <v-container>
-      <v-row class="mt-4" v-if="store.chainsList.length > 0">        
+ 
+      <v-row class="  ma-4" v-if="store.chainsList.length > 0">        
         <v-col
           v-for="chain in store.chainsList"
           :key="chain.name"  
         >        
-          <v-card>
+          <v-card min-width="400">
             
             <v-img
               src="https://i.imgur.com/FavH2J1.png"
@@ -194,8 +194,7 @@
       </v-row>
       <v-row v-else>
         <v-btn block @click="dialogDetail = false" to="/scaffold">Create new chain</v-btn>
-      </v-row>
-    </v-container>
+      </v-row> 
     <v-dialog
       v-model="dialogDetail"
       width="600"
@@ -216,6 +215,80 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="firstRunModal"
+      width="auto"
+      persistent
+    >
+    <v-card
+    class="mx-auto"
+    elevation="1"
+    max-width="500"
+  >
+    <v-card-title class="pa-4 font-weight-black">Welcome to the ignite-ui</v-card-title>
+
+    <v-card-text>
+      This is the first time you are launching the software and we need you to create your config.
+    </v-card-text>
+
+    <v-card-text>
+
+      <v-table> 
+    <tbody>
+ 
+      <tr>
+        <td>Go</td>
+        <td v-if="goGetVersion !== 'false'">
+          <v-icon icon="mdi-check-circle-outline" size="large" color="success"></v-icon> Installed
+        </td>
+        <td v-else>
+          <v-icon icon="mdi-close-circle-outline" size="large" color="error"></v-icon> Not installed
+        </td>
+      </tr>
+      <tr>
+        <td>Ignite-cli</td>
+        <td v-if="igniteGetVersion !== 'false'">
+          <v-icon icon="mdi-check-circle-outline" size="large" color="success"></v-icon> Installed
+        </td>
+        <td v-else>
+          <v-icon icon="mdi-close-circle-outline" size="large" color="error"></v-icon> Not installed
+        </td>
+      </tr>
+    </tbody>
+  </v-table>
+
+      <div class="text-subtitle-2 font-weight-black mb-1 mt-6">Your go export folder</div>
+
+      <v-text-field     
+        v-model="folderGo"   
+        label="/home/<user>/go/bin/"
+        single-line
+        variant="outlined"
+      ></v-text-field>       
+      <div class="text-subtitle-2 font-weight-black mb-1">Your workspace folder</div>
+
+      <v-text-field
+        v-model="folderWork"
+        label="/home/<user>/Desktop/ignite-workspace/"
+        single-line
+        variant="outlined"
+      ></v-text-field>
+
+      <v-btn
+        :disabled="loading"
+        :loading="loading"
+        block
+        class="text-none mb-4"
+        color="indigo-darken-3"
+        size="x-large"
+        variant="flat"         
+        @click="saveIgniteConfig"
+      >
+        Save config
+      </v-btn>
+    </v-card-text>
+  </v-card>
+    </v-dialog>
 </template> 
 <script>
  
@@ -225,6 +298,12 @@
 export default {
   name: 'App',
   data: () => ({
+    firstRunModal: false,
+    loading: false,
+    folderWork: '',
+    folderGo: '',
+    igniteGetVersion: '',
+    goGetVersion: '',
     chainsList: '', 
     dialogDetail: false,
     dialogDetailData: '',
@@ -239,12 +318,24 @@ export default {
     }
   },
   async created() { 
+    // Check first run app
+    if (typeof localStorage.folderWork === 'undefined') {
+      this.firstRunModal = true
+      this.igniteGetVersion = await window.electronAPI.version() 
+      this.goGetVersion = await window.electronAPI.checkGo() 
+    } 
+
     await this.store.loadChains() 
     setInterval(async () => {
       await this.store.refreshChains() 
     }, 5000);    
   },
   methods: {
+    saveIgniteConfig () {
+      localStorage.folderWork = this.folderWork
+      localStorage.folderGo = this.folderGo  
+      this.firstRunModal = false      
+    },    
     openUrl(url) {
       console.log(url)
       window.electronAPI.openUrl(url)
