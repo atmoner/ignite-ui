@@ -110,7 +110,7 @@
                 </v-btn>
                 <v-btn
                   :disabled="chain.online ? true : false"
-                  @click="deleteChain(chain)"
+                  @click="openDeleteChain(chain)"
                 >
                   <v-icon 
                     icon="mdi-delete-empty"
@@ -295,6 +295,39 @@
     </v-card-text>
   </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="confirmDelete"
+      width="auto"
+    >
+    <v-card
+    class="mx-auto"
+    elevation="1"
+    max-width="500"
+  >
+    <v-card-title class="pa-4 font-weight-black">Confirmation</v-card-title>
+
+    <v-card-text>
+      Are you sure to delete this chain?
+      <strong>{{ chainDeleteSelected.name }}</strong><br /><br />
+      This folder will be deleted:<br /> <strong>{{ chainDeleteSelected.path }}</strong>
+    </v-card-text>
+
+    <v-card-text>
+ 
+
+      <v-btn 
+        block
+        class="text-none mb-4"
+        color="red"
+        size="x-large"
+        variant="flat"        
+        @click="deleteChain(chainDeleteSelected)"
+      >
+        Delete chain
+      </v-btn> 
+    </v-card-text>
+  </v-card>
+  </v-dialog>    
 </template> 
 <script>
  
@@ -305,6 +338,7 @@ export default {
   name: 'App',
   data: () => ({
     firstRunModal: false,
+    confirmDelete: false,
     formSend: false,
     loading: false,
     folderWork: '',
@@ -317,6 +351,7 @@ export default {
     chainSelectedPath: '',
     yamlFile: '',
     loadedYaml: '',
+    chainDeleteSelected: '',
     rules: {
       required: value => !!value || 'Required.',
     },
@@ -360,6 +395,10 @@ export default {
       this.loadedYaml = data.config.loadedYaml
       this.chainSelectedPath = data.path
     },
+    async openDeleteChain(chain) {
+      this.confirmDelete = true
+      this.chainDeleteSelected = chain
+    },
     async deleteChain(chain) {
       let chains = JSON.parse(localStorage.chains)
       await window.electronAPI.deleteChain(chain.path)      
@@ -367,6 +406,7 @@ export default {
       chains.splice(index, 1)
       localStorage.chains = JSON.stringify(chains)
       this.store.chainsList = JSON.parse(localStorage.chains)
+      this.confirmDelete = false
     },
     async startChain(chain) { 
       await this.store.startChain(chain)          

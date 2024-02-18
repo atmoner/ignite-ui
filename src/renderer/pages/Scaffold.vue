@@ -147,7 +147,6 @@
     methods: {
       async validate () {
  
-          alert('Form is valid')
           let scaffoldChain = await window.electronAPI.scaffoldChain(this.name, this.prefix, this.folderWork, this.noModules)
           const getChains = localStorage.getItem('chains')
           const chains = JSON.parse(getChains)
