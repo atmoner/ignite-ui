@@ -8,12 +8,16 @@
           <span class="text-h5">Scaffold new chain</span>
         </v-card-title>
         <v-card-text>
+          <v-form
+            ref="formSend" 
+            v-model="formSend"
+          > 
           <v-container> 
             <v-row> 
               <v-col cols="12">
                 <v-text-field
                   v-model="folderWork"       
-                  label="Folder Work"
+                  label="Folder Work"                  
                   variant="outlined"
                   readonly
                   disabled
@@ -23,6 +27,7 @@
                 <v-text-field
                   v-model="name" 
                   label="Chain name"  
+                  :rules="[rules.required]"
                   variant="outlined"               
                   required
                 ></v-text-field>
@@ -30,7 +35,8 @@
               <v-col cols="12">
                 <v-text-field
                   v-model="prefix" 
-                  label="Address prefix"  
+                  label="Address prefix" 
+                  :rules="[rules.required]" 
                   variant="outlined"               
                   required
                 ></v-text-field>
@@ -38,13 +44,15 @@
             </v-row>
             <v-checkbox v-model="noModules" label="--no-module"></v-checkbox>
             <v-btn 
-          variant="tonal"
-            block
-            @click="validate()"
-          >
+              variant="tonal"
+              block
+              :disabled="!formSend"
+              @click="validate()"
+            >
             Scaffold
           </v-btn>
           </v-container>
+          </v-form>
         </v-card-text> 
       </v-card>
  
@@ -111,6 +119,7 @@
 
   export default {
     data: () => ({
+      formSend: false,
       name: '',
       folderWork: '',
       prefix: '',
@@ -120,13 +129,10 @@
         v => (v && v.length <= 10) || 'Name must be less than 10 characters',
       ],
       select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
       checkbox: false, 
+      rules: {
+        required: value => !!value || 'Required.',
+      },
     }),
     watch: {
       name (val) {
