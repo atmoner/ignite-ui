@@ -5,6 +5,7 @@
       v-model="tab" 
     >
       <v-tab value="one">Chain Info</v-tab>
+      <v-tab value="config">Config</v-tab>
       <v-tab value="two">Scaffold</v-tab>
       <v-tab value="three">Generate</v-tab>
       <v-tab value="four">Console</v-tab>
@@ -13,10 +14,10 @@
       
     </v-tabs>
 
-      <v-card-text>
-        <v-window v-model="tab">
-          <v-window-item value="one">
-            <v-row no-gutters>
+      <v-card-text >
+        <v-window v-model="tab" >
+          <v-window-item value="one" >
+            <v-row no-gutters >
               <v-col
                 cols="12"
                 sm="6"
@@ -93,19 +94,7 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-row no-gutters>
-              <v-col 
-              >
-                <v-card  class="ma-6 pa-4"  min-width="400">
-                  <v-textarea 
-                    v-model="chainConfig.yamlFile"
-                    label="Edit config"  
-                    auto-grow           
-                    variant="outlined"
-                  ></v-textarea>  
-                </v-card>
-              </v-col>
-            </v-row>
+ 
           </v-window-item>
 
           <v-window-item value="two">
@@ -277,7 +266,20 @@
          <!--  <v-window-item value="five">
             network
           </v-window-item> -->
-          
+          <v-window-item value="config">
+            <v-sheet>
+ 
+            <v-textarea 
+              v-model="yamlFile"
+              class="mt-4"
+              label="Edit config"  
+              auto-grow           
+              variant="outlined"
+            ></v-textarea>   
+ 
+              <v-btn block @click="saveConfig">Save config</v-btn> 
+            </v-sheet>
+          </v-window-item>
         </v-window>
       </v-card-text>    
     </v-card>
@@ -392,6 +394,7 @@ export default {
     chainInfo: '',
     chainConfig: '',
     dialog: false,
+    yamlFile: '',
     editor: new Editor(),
       viewPlugin: new ViewPlugin(),
       engine: new Engine(true),
@@ -482,11 +485,17 @@ export default {
         console.log(chain)
         this.chainInfo = chain
         this.chainConfig = await window.electronAPI.getChainConfig(chain.path)
+        this.yamlFile = this.chainConfig.yamlFile
       }
     }) 
 
   },
   methods: {
+    saveConfig() {    
+      console.log(this.chainConfig)
+      let copyData = this.yamlFile
+      window.electronAPI.saveConfig(this.chainInfo.path, this.yamlFile)
+    },
     runBinaryFunc () {
       // console.log(localStorage.folderGo +  this.chainInfo.name + 'd', this.cliQuery)
       window.electronAPI.runBinary(localStorage.folderGo + '/' +  this.chainInfo.name + 'd', this.cliQuery + ' --node http://localhost:26657')

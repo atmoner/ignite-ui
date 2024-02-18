@@ -30,6 +30,19 @@
         <v-card-text>
           <span v-html="version"></span>
         </v-card-text>
+        <v-divider></v-divider>
+
+<v-card-actions>
+  <v-spacer></v-spacer>
+  <v-btn>
+    check version
+    <v-tooltip
+      activator="parent"
+      location="top"
+    >Soon</v-tooltip>
+  </v-btn>
+
+</v-card-actions>
       </v-card>
     </v-row>     
 </template> 
