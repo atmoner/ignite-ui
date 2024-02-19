@@ -1,7 +1,7 @@
 import {app, BrowserWindow, ipcMain, session, shell} from 'electron';
 const path = require('path');
 const iconPath = path.join(__dirname, "static", "logo.png");
-console.log(iconPath)
+
 
 app.commandLine.appendSwitch('ignore-gpu-blacklist');
 app.commandLine.appendSwitch('disable-gpu');

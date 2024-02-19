@@ -110,7 +110,7 @@
                 </v-btn>
                 <v-btn
                   :disabled="chain.online ? true : false"
-                  @click="deleteChain(chain)"
+                  @click="openDeleteChain(chain)"
                 >
                   <v-icon 
                     icon="mdi-delete-empty"
@@ -258,9 +258,14 @@
   </v-table>
 
       <div class="text-subtitle-2 font-weight-black mb-1 mt-6">Your go export folder</div>
-
+ 
+          <v-form
+            ref="formSend" 
+            v-model="formSend"
+          > 
       <v-text-field     
-        v-model="folderGo"   
+        v-model="folderGo" 
+        :rules="[rules.required]"  
         label="/home/<user>/go/bin/"
         single-line
         variant="outlined"
@@ -269,26 +274,60 @@
 
       <v-text-field
         v-model="folderWork"
+        :rules="[rules.required]"
         label="/home/<user>/Desktop/ignite-workspace/"
         single-line
         variant="outlined"
       ></v-text-field>
 
-      <v-btn
-        :disabled="loading"
-        :loading="loading"
+      <v-btn 
         block
         class="text-none mb-4"
         color="indigo-darken-3"
         size="x-large"
-        variant="flat"         
+        variant="flat"  
+        :disabled="!formSend"       
         @click="saveIgniteConfig"
       >
         Save config
       </v-btn>
+    </v-form>
     </v-card-text>
   </v-card>
     </v-dialog>
+    <v-dialog
+      v-model="confirmDelete"
+      width="auto"
+    >
+    <v-card
+    class="mx-auto"
+    elevation="1"
+    max-width="500"
+  >
+    <v-card-title class="pa-4 font-weight-black">Confirmation</v-card-title>
+
+    <v-card-text>
+      Are you sure to delete this chain?
+      <strong>{{ chainDeleteSelected.name }}</strong><br /><br />
+      This folder will be deleted:<br /> <strong>{{ chainDeleteSelected.path }}</strong>
+    </v-card-text>
+
+    <v-card-text>
+ 
+
+      <v-btn 
+        block
+        class="text-none mb-4"
+        color="red"
+        size="x-large"
+        variant="flat"        
+        @click="deleteChain(chainDeleteSelected)"
+      >
+        Delete chain
+      </v-btn> 
+    </v-card-text>
+  </v-card>
+  </v-dialog>    
 </template> 
 <script>
  
@@ -299,6 +338,8 @@ export default {
   name: 'App',
   data: () => ({
     firstRunModal: false,
+    confirmDelete: false,
+    formSend: false,
     loading: false,
     folderWork: '',
     folderGo: '',
@@ -309,7 +350,11 @@ export default {
     dialogDetailData: '',
     chainSelectedPath: '',
     yamlFile: '',
-    loadedYaml: ''
+    loadedYaml: '',
+    chainDeleteSelected: '',
+    rules: {
+      required: value => !!value || 'Required.',
+    },
   }), 
   setup() {
     const store = useAppStore()
@@ -350,6 +395,10 @@ export default {
       this.loadedYaml = data.config.loadedYaml
       this.chainSelectedPath = data.path
     },
+    async openDeleteChain(chain) {
+      this.confirmDelete = true
+      this.chainDeleteSelected = chain
+    },
     async deleteChain(chain) {
       let chains = JSON.parse(localStorage.chains)
       await window.electronAPI.deleteChain(chain.path)      
@@ -357,6 +406,7 @@ export default {
       chains.splice(index, 1)
       localStorage.chains = JSON.stringify(chains)
       this.store.chainsList = JSON.parse(localStorage.chains)
+      this.confirmDelete = false
     },
     async startChain(chain) { 
       await this.store.startChain(chain)          
