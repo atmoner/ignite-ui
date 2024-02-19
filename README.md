@@ -9,7 +9,7 @@ ignite-ui is an interface to facilitate the use of ignite-cli
 
 ## Getting started
 
-Clone this repository: `git clone https://github.com/atmoner/ignite-ui.git`
+Clone this repository: `git clone https://github.com/atmoner/ignite-ui.git`  
 And go in folder: `cd ignite-ui`
 
 ### Install dependencies ⏬
