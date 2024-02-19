@@ -24,13 +24,13 @@
  
                   <v-avatar v-if="folder.title === 'Ignite-cli'">
                     <v-img
-                      src="../logo.png"
+                      src="https://raw.githubusercontent.com/atmoner/ignite-ui/next/src/renderer/public/logo.png?token=GHSAT0AAAAAACIRM3WCWC4HFEGW6ZTZF24SZOTXSIQ"
                       alt="John"
                     ></v-img>
                   </v-avatar>
                   <v-avatar v-else>
                     <v-img
-                      src="../atmon3r.jpg"
+                      src="https://raw.githubusercontent.com/atmoner/ignite-ui/next/src/renderer/public/atmon3r.jpg?token=GHSAT0AAAAAACIRM3WCB3J6JRR4HJU6AXAUZOTXUDQ"
                       alt="John"
                     ></v-img>
                   </v-avatar>
@@ -65,20 +65,6 @@
 
   export default {
     data: () => ({
-      formSend: false,
-      name: '',
-      folderWork: '',
-      prefix: '',
-      noModules: true,
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-      ],
-      select: null,
-      checkbox: false, 
-      rules: {
-        required: value => !!value || 'Required.',
-      }, 
       folders: [
         {
           subtitle: 'Ignite team',
@@ -93,52 +79,14 @@
         }
       ],
     }),
-    watch: {
-      name (val) {
-        this.folderWork = localStorage.folderWork + '/' + val
-      } 
-    },
+
     mounted() {
-  
-      this.folderWork = localStorage.folderWork
-      console.log(JSON.parse(localStorage.chains))
+
     },
     methods: {
       openUrl(url) {
         console.log(url)
         window.electronAPI.openUrl(url)
-      },
-      async validate () {
- 
-          let scaffoldChain = await window.electronAPI.scaffoldChain(this.name, this.prefix, this.folderWork, this.noModules)
-          const getChains = localStorage.getItem('chains')
-          const chains = JSON.parse(getChains)
-          chains.push({
-            name: this.name,
-            path: this.folderWork,
-            noModule: this.noModules
-          })
-          localStorage.chains = JSON.stringify(chains)
-          console.log(localStorage.chains); 
- 
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
-      async startChain () {
-        let scaffoldChain = await window.electronAPI.startChain()
-        console.log(scaffoldChain)
-      },
-      async stopChain () {
-        let stopChain = await window.electronAPI.stopChain('testd')
-        console.log(stopChain)
-      },
-      async listAccount () {
-        let listAccount = await window.electronAPI.listAccount()
-        console.log(listAccount)
       }
     },
   }

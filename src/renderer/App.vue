@@ -9,7 +9,7 @@
         temporary
       >
         <v-list-item
-          prepend-avatar="../logo.png" 
+          prepend-avatar="https://raw.githubusercontent.com/atmoner/ignite-ui/next/src/renderer/public/logo.png?token=GHSAT0AAAAAACIRM3WCWC4HFEGW6ZTZF24SZOTXSIQ" 
           nav
         >
         <v-list-item-title>Ignite-ui
@@ -93,9 +93,7 @@ export default {
     rail: true,
   }), 
   watch: {
-    rail(to) {
-      console.log(to)
-    },
+
   },
   async created() {
     if (typeof localStorage.chains === 'undefined') {

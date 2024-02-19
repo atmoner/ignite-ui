@@ -1,6 +1,6 @@
 {
   "name": "ignite-ui",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A powerfull UI for ignite-cli",
   "main": "build/main/main.js",
   "scripts": {

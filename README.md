@@ -1,39 +1,38 @@
 <div align="center"> 
 
 # Ignite-ui
+
+[![Release a new version](https://github.com/atmoner/ignite-ui/actions/workflows/release.yml/badge.svg)](https://github.com/atmoner/ignite-ui/actions/workflows/release.yml)  
+
+
 ![image](https://github.com/atmoner/ignite-ui/assets/1071490/cfb5c524-a64a-43a1-a23c-44b9e1c08c52)
 
-ignite-ui is an interface to facilitate the use of ignite-cli
+ignite-ui is an interface to facilitate the use of ignite-cli  
+ 
+ 
 </div>
 
-## About
-
-This template utilizes [ViteJS](https://vitejs.dev) for building and serving your (Vue powered) front-end process, it provides Hot Reloads (HMR) to make development fast and easy ⚡ 
-
-Building the Electron (main) process is done with [Electron Builder](https://www.electron.build/), which makes your application easily distributable and supports cross-platform compilation 😎
 
 ## Getting started
 
-Click the green **Use this template** button on top of the repository, and clone your own newly created repository.
+### Build from sources  
 
-**Or..**
+Clone this repository: `git clone https://github.com/atmoner/ignite-ui.git`  
+And go in folder: `cd ignite-ui`
 
-Clone this repository: `git clone git@github.com:Deluze/electron-vue-template.git`
-
-
-### Install dependencies ⏬
+#### Install dependencies ⏬
 
 ```bash
 npm install
 ```
 
-### Start developing ⚒️
+#### Start developing ⚒️
 
 ```bash
 npm run dev
 ```
 
-## Additional Commands
+#### Additional Commands
 
 ```bash
 npm run dev # starts application with hot reload
@@ -45,8 +44,20 @@ npm run build:win # uses windows as build target
 npm run build:mac # uses mac as build target
 npm run build:linux # uses linux as build target
 ```
-
 Optional configuration options can be found in the [Electron Builder CLI docs](https://www.electron.build/cli.html).
+
+### Install from compilation
+
+With each new version pushed to the main branch, a workflow is put into operation to compile the executable version of ```ignite-ui``` for Linux and macOs.
+
+| Os | Version | Link |
+| ------ | ------ | ------ |
+| Linux | v0.1.6 | [Download AppImage](https://github.com/atmoner/ignite-ui/releases/download/v0.1.6/ignite-ui-0.1.6.AppImage) |
+| MacOs | v0.1.6 | [Download Dmg](https://github.com/atmoner/ignite-ui/releases/download/v0.1.6/ignite-ui-0.1.6.dmg) |
+ 
+
+
+
 ## Project Structure
 
 ```bash
@@ -56,25 +67,12 @@ Optional configuration options can be found in the [Electron Builder CLI docs](h
   - renderer/ # Renderer thread (VueJS application source)
 ```
 
-## Using static files
 
-If you have any files that you want to copy over to the app directory after installation, you will need to add those files in your `src/main/static` directory.
+## Tips for 2 chains online on same computer
 
-#### Referencing static files from your main process
+ 
 
-```ts
-/* Assumes src/main/static/myFile.txt exists */
-
-import {app} from 'electron';
-import {join} from 'path';
-import {readFileSync} from 'fs';
-
-const path = join(app.getAppPath(), 'static', 'myFile.txt');
-const buffer = readFileSync(path);
-```
-
-
-```
+``` yaml
 validators:
 - name: alice
   bonded: 100000000stake
@@ -92,7 +90,7 @@ validators:
       laddr: :26659
       pprof_laddr: :6061
 ```      
-``` 
+``` yaml
 faucet:
   name: bob
   coins:
@@ -101,6 +99,19 @@ faucet:
   port: 4501
 ``` 
 
-``` 
-ignite relayer configure --source-account default --target-account default --source-rpc http://localhost:26657 --target-rpc http://localhost:26659 --source-faucet http://localhost:4500 --target-faucet http://localhost:4501 --source-gasprice 0.00025stake --target-gasprice 0.00025stake --source-gaslimit 300000 --target-gaslimit 300000 --source-prefix dev --target-prefix atmodev2
+## Example relayer configure (todo in UI)
+``` bash
+ignite relayer configure \
+--source-account default \
+--target-account default \
+--source-rpc http://localhost:26657 \
+--target-rpc http://localhost:26659 \
+--source-faucet http://localhost:4500 \
+--target-faucet http://localhost:4501 \
+--source-gasprice 0.00025stake \
+--target-gasprice 0.00025stake \
+--source-gaslimit 300000 \
+--target-gaslimit 300000 \
+--source-prefix dev \
+--target-prefix atmodev2
 ``` 

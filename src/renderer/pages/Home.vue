@@ -1,6 +1,6 @@
 <template>
  
-      <v-row class="  ma-4" v-if="store.chainsList.length > 0">        
+      <v-row class="ma-4" v-if="store.chainsList.length > 0">        
         <v-col
           v-for="chain in store.chainsList"
           :key="chain.name"  
@@ -192,9 +192,13 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row v-else>
-        <v-btn block @click="dialogDetail = false" to="/scaffold">Create new chain</v-btn>
+      
+      <v-row align="center"
+      justify="center" class="d-flex align-center justify-center ma-4" v-else>
+        <v-btn  rounded="lg" size="x-large" @click="dialogDetail = false" to="/scaffold">Create new chain</v-btn>
+        
       </v-row> 
+ 
     <v-dialog
       v-model="dialogDetail"
       width="600"
@@ -327,7 +331,8 @@
       </v-btn> 
     </v-card-text>
   </v-card>
-  </v-dialog>    
+  </v-dialog>   
+   
 </template> 
 <script>
  
@@ -382,7 +387,6 @@ export default {
       this.firstRunModal = false      
     },    
     openUrl(url) {
-      console.log(url)
       window.electronAPI.openUrl(url)
     },
     saveConfig() {    
