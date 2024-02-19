@@ -9,7 +9,7 @@
         temporary
       >
         <v-list-item
-          prepend-avatar="https://uploads-ssl.webflow.com/61d0960dc36814254b73e5ba/63ab212f5f0e596e7edf9bca_1645620665618.jpg" 
+          prepend-avatar="../logo.png" 
           nav
         >
         <v-list-item-title>Ignite-ui
@@ -42,6 +42,8 @@
           <v-list-item prepend-icon="mdi-atom" title="Scaffold" value="Scaffold" to="/scaffold"></v-list-item>           
           <v-list-item prepend-icon="mdi-alpha-v-box-outline" title="Version" value="Version" to="/version"></v-list-item>
           <v-list-item prepend-icon="mdi-cog" title="Settings" value="Settings" to="/settings"></v-list-item>
+          <v-list-item prepend-icon="mdi-star-shooting" title="Credits" value="Credits" to="/credits"></v-list-item>
+          
         </v-list>
       </v-navigation-drawer>
       <!-- <v-app-bar

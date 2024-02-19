@@ -17,6 +17,7 @@ import Version from './pages/Version.vue'
 import Settings from './pages/Settings.vue'
 import ChainDetail from './pages/ChainDetail.vue'
 import Relayer from './pages/Relayer.vue'
+import Credits from './pages/Credits.vue'
 
  
 import { BaklavaVuePlugin } from "@baklavajs/plugin-renderer-vue3";
@@ -58,6 +59,11 @@ const router = VueRouter.createRouter({
         path: '/settings',
         name: 'Settings',
         component: Settings
+      },
+      {
+        path: '/credits',
+        name: 'Credits',
+        component: Credits
       },
       {
         path: '/chain/:name',

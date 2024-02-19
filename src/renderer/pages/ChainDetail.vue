@@ -96,7 +96,20 @@
             </v-row>
  
           </v-window-item>
-
+          <v-window-item value="config">
+            <v-sheet>
+ 
+            <v-textarea 
+              v-model="yamlFile"
+              class="mt-4"
+              label="Edit config"  
+              auto-grow           
+              variant="outlined"
+            ></v-textarea>   
+ 
+              <v-btn block @click="saveConfig">Save config</v-btn> 
+            </v-sheet>
+          </v-window-item>
           <v-window-item value="two">
             <v-expansion-panels>
               <v-expansion-panel
@@ -266,20 +279,7 @@
          <!--  <v-window-item value="five">
             network
           </v-window-item> -->
-          <v-window-item value="config">
-            <v-sheet>
- 
-            <v-textarea 
-              v-model="yamlFile"
-              class="mt-4"
-              label="Edit config"  
-              auto-grow           
-              variant="outlined"
-            ></v-textarea>   
- 
-              <v-btn block @click="saveConfig">Save config</v-btn> 
-            </v-sheet>
-          </v-window-item>
+
         </v-window>
       </v-card-text>    
     </v-card>
