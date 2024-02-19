@@ -52,11 +52,9 @@ export default {
   name: 'App',
   data: () => ({
     version: '',
-    drawer: true,
-    rail: true,
   }), 
   async created() {
-      window.electronAPI.sendMessage('Hello from App.vue!')
+
       let getVersion = await window.electronAPI.version() 
       //console.log(getVersion)
       this.version = getVersion.replace(/\n/g, '<br />')
