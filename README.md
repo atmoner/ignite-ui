@@ -40,7 +40,6 @@ npm run build # builds application, distributable files can be found in "dist" f
 
 # OR
 
-npm run build:win # uses windows as build target
 npm run build:mac # uses mac as build target
 npm run build:linux # uses linux as build target
 ```
